@@ -1,11 +1,11 @@
-import { Aparature } from "../db_models/aparature-model";
+import AparatureClass from "../db_models/aparature-model";
 import AparatureAttr from "../../domain/Aparature/Aparature";
 import CreateAparate from "../../domain/Aparature/CreateAparature";
 
 class AparatureDB {
     static addAparatureToDatabase = async (aparature: CreateAparate): Promise<void> => {
         try {
-        const newAparature = await Aparature.create({
+        const newAparature = await AparatureClass.Aparature.create({
             name: aparature.name,
             model: aparature.model,
             type_signal: aparature.type_signal,
@@ -20,7 +20,7 @@ class AparatureDB {
 
     static removeAparatureById = async (id: number): Promise<string> => {
         try {
-        const deletedAparatureCount = await Aparature.destroy({
+        const deletedAparatureCount = await AparatureClass.Aparature.destroy({
             where: {
             id: id,
             },
@@ -38,7 +38,7 @@ class AparatureDB {
 
     static editAparatureById = async (id: number, newData: Partial<CreateAparate>): Promise<string> => {
         try {
-        const [updatedRowCount] = await Aparature.update(newData, {
+        const [updatedRowCount] = await AparatureClass.Aparature.update(newData, {
             where: {
             id: id,
             },
@@ -56,7 +56,7 @@ class AparatureDB {
 
     static getAparatureById = async (id: number): Promise<AparatureAttr | null> => {
         try {
-          const aparature = await Aparature.findOne({
+          const aparature = await AparatureClass.Aparature.findOne({
             where: {
               id: id,
             },
@@ -76,7 +76,7 @@ class AparatureDB {
 
       static getAllAparatures = async (): Promise<string> => {
         try {
-          const allAparatures: Array<AparatureAttr> = await Aparature.findAll();
+          const allAparatures: Array<AparatureAttr> = await AparatureClass.Aparature.findAll();
         
           if (allAparatures.length > 0) {
             const formattedAparatures = allAparatures.map((aparature) => ({
