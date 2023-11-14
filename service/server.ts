@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import router_aparature from '../route/route-aparature'
+import router_units from '../route/route-units'
 import db_init from '../database/db_init';
 import init_config from '../database/db_config';
 import { Sequelize } from 'sequelize';
@@ -12,7 +13,7 @@ const app: Express = express()
 app.use(bodyParser.urlencoded({ extended: true }));
 ​app.use(express.json())
 app.use('/api_v1', router_aparature)
-
+app.use('/api_v2', router_units)
 
 const port = process.env.SERVER_PORT
 const host = process.env.SERVER_HOST

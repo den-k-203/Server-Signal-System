@@ -48,6 +48,14 @@ router.delete('/aparatures/:id', async (req: Request, res: Response) => {
     const data = { 
             message: await AparatureDB.removeAparatureById(id)
         }
+    
+        res.json(data)
+})
+
+router.get('/aparature/:id',  async (req: Request, res: Response) => {
+    const id  = Number(req.params.id)
+    const data = await AparatureDB.getAparatureById(id)
+    
     res.json(data)
 })
 
