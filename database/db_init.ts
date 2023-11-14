@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import AparatureClass from "./db_models/aparature-model";
 import UnitsClass from "./db_models/unit-model";
+import ConnectionUnitAparatClass from "./db_models/unit-aparature-model";
 
 const db_init = async (sequelize: Sequelize) => {
     try {
@@ -10,6 +11,10 @@ const db_init = async (sequelize: Sequelize) => {
 
         if(!await checkIfTableExists(sequelize, 'units')){
             await UnitsClass.createSequelizeTypes()
+        }
+
+        if(!await checkIfTableExists(sequelize, 'connection_unit_aparat')){
+          await ConnectionUnitAparatClass.createSequelizeTypes()
         }
 
       } catch (error) {
