@@ -1,24 +1,31 @@
 import { Sequelize } from "sequelize";
-import CarsTable from "./db_models/car-model";
+import { createSequelizeTypes } from "./db_models/aparature-model";
+
 
 
 const db_init = async (sequelize: Sequelize) => {
     try {
-        await sequelize.authenticate();
-        console.log(`⚡️[database]: Connection has been established successfully.`);
+        if(!await checkIfTableExists(sequelize)){
+            createSequelizeTypes()
+        }
       } catch (error) {
         console.error('⚡️[database]: Unable to connect to the database:', error);
       }
 }
 
 
-const init_tables = async (sequelize: Sequelize) => {
+const checkIfTableExists = async (sequelize: Sequelize) => {
   try {
-    CarsTable(sequelize)
-    console.log(`⚡️[database]: Tables has been created successfully.`);
+    const tableName = 'aparatures';
+
+    const tableExists = await sequelize.getQueryInterface().showAllTables().then((tables) => {
+      return tables.some((table) => table === tableName);
+    });
+    console.log(`⚡️[database]: Table '${tableName}' exists:`, tableExists);
+    return tableExists
   } catch (error) {
-    console.error('⚡️[database]: Unable to create tables:', error);
+    console.error('Error checking table existence:', error);
   }
-}
+};
 
 export default db_init
