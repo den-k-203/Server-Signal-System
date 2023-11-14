@@ -1,20 +1,23 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import router from '../route/route'
+import router_aparature from '../route/route-aparature'
 import db_init from '../database/db_init';
 import init_config from '../database/db_config';
-import { Sequelize} from 'sequelize';
+import { Sequelize } from 'sequelize';
+import bodyParser = require('body-parser');
 
 dotenv.config()
 
 const app: Express = express()
-app.use('', router)
+app.use(bodyParser.urlencoded({ extended: true }));
+​app.use(express.json())
+app.use('/api_v1', router_aparature)
+
 
 const port = process.env.SERVER_PORT
 const host = process.env.SERVER_HOST
 
-const sequelize: undefined | Sequelize = init_config()
-
+const sequelize: null | Sequelize = init_config()
 
 const start = async () =>{
     try{
