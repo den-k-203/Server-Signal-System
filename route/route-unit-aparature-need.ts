@@ -35,4 +35,19 @@ router.delete('/unit-aparature/:id', async (req: Request, res: Response) => {
 })
 
 
+
+router.post('/add-unit-aparature',  async (req: Request, res: Response) => {
+    const { id_unit, id_aparature, count } = req.body 
+    
+    const unit_aparature: CreateConnectionUnitAparature = {
+        id_unit: id_unit,
+        id_aparature: id_aparature,
+        count: count
+    }
+
+    const data = await UnitAparatureExistDb.addUnitAparatureToDatabase(unit_aparature)
+
+    res.json(data)
+})
+
 export default router
