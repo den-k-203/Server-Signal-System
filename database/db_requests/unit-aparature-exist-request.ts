@@ -1,10 +1,10 @@
 import CreateUnitAparaturet from "../../domain/Connection/CreateUnitAparature";
-import UnitAparaturetClass from "../db_models/unit-aparature-model";
+import UnitAparatureExistClass from "../db_models/unit-aparature-exist-model";
 
-class UnitAparaturetDb{
+class UnitAparatureExistDb{
     static addUnitAparatureToDatabase = async (connection: CreateUnitAparaturet): Promise<void> => {
         try {
-            const newConnection = await UnitAparaturetClass.UnitAparature.create({
+            const newConnection = await UnitAparatureExistClass.UnitAparature.create({
                 id_unit: connection.id_unit,
                 id_aparature: connection.id_aparature,
                 count: connection.count
@@ -17,7 +17,7 @@ class UnitAparaturetDb{
 
     static removeUnitAparatureById = async (id: number): Promise<string> => {
         try {
-        const deletedUnitCount = await UnitAparaturetClass.UnitAparature.destroy({
+        const deletedUnitCount = await UnitAparatureExistClass.UnitAparature.destroy({
             where: {
             id: id,
             },
@@ -33,9 +33,9 @@ class UnitAparaturetDb{
         }
     };
 
-    static editUnitById = async (id: number, newData: Partial<CreateUnitAparaturet>): Promise<string> => {
+    static editUnitAparatureById = async (id: number, newData: Partial<CreateUnitAparaturet>): Promise<string> => {
         try {
-        const [updatedRowCount] = await UnitAparaturetClass.UnitAparature.update(newData, {
+        const [updatedRowCount] = await UnitAparatureExistClass.UnitAparature.update(newData, {
             where: {
             id: id,
             },
@@ -53,7 +53,7 @@ class UnitAparaturetDb{
 
     static getAllUnitAparature = async (id_unit: number): Promise<string> => {
         try {
-          const unitAparatures = await UnitAparaturetClass.UnitAparature.findAll({
+          const unitAparatures = await UnitAparatureExistClass.UnitAparature.findAll({
             where: { id_unit },
             include: ['unit', 'aparature'], 
           });
@@ -66,4 +66,4 @@ class UnitAparaturetDb{
       };
 }
 
-export default UnitAparaturetDb
+export default UnitAparatureExistDb
